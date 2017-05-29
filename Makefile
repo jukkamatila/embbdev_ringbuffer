@@ -2,14 +2,14 @@
 # make test - to compile for unit testing 
 
 #use this if googletest locally installed
-ifdef LOCAL
+ifndef LOCAL
 GTEST_DIR=~/googletest/googletest
 GTEST_INCLUDE=-I $(GTEST_DIR)/include
 GTEST_LIB=libgtest.a
 else
 GTEST_DIR=
 GTEST_INCLUDE=
-GTEST_LIB=
+GTEST_LIB=-lgtest
 endif
 
 
@@ -23,11 +23,8 @@ PROJ=functions
 main: main.o $(PROJ).o
 	gcc main.o $(PROJ).o -o main $(LDFLAGS)
 
-test: Gtest_main.o test_case.o $(PROJ)_test.o
-	g++  $(LDFLAGS) -pthread $(PROJ)_test.o test_case.o Gtest_main.o -lgtest -o test
-
-local_test: Gtest_main.o testcase.o $(PROJ)_test.o libgtest.a
-	g++  $(LDFLAGS) $(GTEST_INCLUDE) -pthread $(PROJ)_test.o testcase.o Gtest_main.o $(GTEST_LIB) -o test
+test: Gtest_main.o testcase.o $(PROJ)_test.o libgtest.a   ## REMARK: remove libgtest.a
+	g++  $(LDFLAGS) -pthread $(PROJ)_test.o testcase.o Gtest_main.o $(GTEST_LIB) -o test
 
 ########## Normal ###########
 
@@ -50,7 +47,7 @@ testcase.o: testcase.c
 
 ########## Google Test framework ############
 libgtest.a:
-	g++ -isystem $(GTEST_DIR)/include -I$(GTEST_DIR) -pthread -c $(GTEST_DIR)/src/gtest-all.cc
+	g++ -isystem $(GTEST_DIR)/include -I $(GTEST_DIR) -pthread -c $(GTEST_DIR)/src/gtest-all.cc
 	ar -rv libgtest.a gtest-all.o
 
 ########### Coverage analysis ############

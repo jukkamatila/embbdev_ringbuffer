@@ -16,11 +16,11 @@ before_install:
 before_script:
     - make
 script:
-    - ./modbus_test
+    - ./test
 branches:
   only:
     - master
-    - pull_test
+    - student
 notifications:
   recipients:
     - jukka.matila@vamk.fi
