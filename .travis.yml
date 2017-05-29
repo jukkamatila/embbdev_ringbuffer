@@ -14,7 +14,7 @@ before_install:
  - cd "${TRAVIS_BUILD_DIR}"
 
 before_script:
-    - make
+    - make test
 script:
     - ./test
 branches:
