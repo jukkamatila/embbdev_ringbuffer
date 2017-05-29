@@ -1,0 +1,31 @@
+language: c
+compiler:
+  - gcc
+os: linux
+dist: trusty
+before_install:
+ - sudo apt-get -qq update
+ - sudo apt-get install -y libgtest-dev valgrind
+ - cd /usr/src/gtest
+ - sudo cmake .
+ - sudo make
+ - sudo mv libg* /usr/lib/
+ - which valgrind
+ - cd "${TRAVIS_BUILD_DIR}"
+
+before_script:
+    - make
+script:
+    - ./modbus_test
+branches:
+  only:
+    - master
+    - pull_test
+notifications:
+  recipients:
+    - jukka.matila@vamk.fi
+  email:
+    on_success: always
+    on_failure: change
+rvm:
+  - 9.00
