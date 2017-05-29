@@ -13,11 +13,12 @@ GTEST_LIB=-lgtest
 endif
 
 
-COPTS=-Wall -fprofile-arcs -ftest-coverage
+COPTS=-Wall -fpermissive
+COPTS_COV=$(COPTS) -fprofile-arcs -ftest-coverage
 LDFLAGS=-fprofile-arcs -ftest-coverage
 COV_OUTPUT=./cov_output
 
-PROJ=functions
+PROJ=ringbuffer
 
 ######### Main targets ##########
 main: main.o $(PROJ).o
@@ -29,10 +30,10 @@ test: Gtest_main.o testcase.o $(PROJ)_test.o  #libgtest.a   ## REMARK: remove li
 ########## Normal ###########
 
 $(PROJ).o: $(PROJ).c
-	gcc  -c $(PROJ).c
+	gcc  -c $(COPTS_COV) $(PROJ).c
 
 main.o: main.c include.h
-	gcc -c main.c
+	gcc -c $(COPTS) main.c
 
 ########## Unit test ########
 
