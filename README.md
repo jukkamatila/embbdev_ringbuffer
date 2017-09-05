@@ -11,7 +11,7 @@ Usage:
 - pull request ??
 
 
-Run Makeile:
+Run Makefile:
 
 make clean /* clean previous compilation */
 
