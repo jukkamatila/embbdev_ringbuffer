@@ -24,7 +24,7 @@ PROJ=ringbuffer
 main: main.o $(PROJ).o
 	gcc main.o $(PROJ).o -o main $(LDFLAGS)
 
-test: Gtest_main.o testcase.o $(PROJ)_test.o  #libgtest.a   ## REMARK: remove libgtest.a
+test: Gtest_main.o testcase.o $(PROJ)_test.o  $(GTEST_LIB) libgtest.a 
 	g++  $(LDFLAGS) -pthread $(PROJ)_test.o testcase.o Gtest_main.o $(GTEST_LIB) -o test
 
 ########## Normal ###########
@@ -44,7 +44,7 @@ $(PROJ)_test.o: $(PROJ).c
 	g++  -c $(PROJ).c -o $(PROJ)_test.o
 
 testcase.o: testcase.c
-	g++ -c $(COPTS) testcase.c
+	g++ -c $(COPTS) testcase.c $(GTEST_INCLUDE)
 
 ########## Google Test framework ############
 libgtest.a:

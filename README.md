@@ -13,6 +13,8 @@ Usage:
 
 Run Makeile:
 
+export LOCAL="local"
+
 make clean /* clean previous compilation */
 
 make test /* compile instrumented report */
@@ -20,3 +22,9 @@ make test /* compile instrumented report */
 ./test /* Create coverage data */
 
 make report /* Create a test coverage report*/
+
+After finished:
+
+git commit -a
+
+git 
