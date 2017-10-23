@@ -27,4 +27,4 @@ After finished:
 
 git commit -a
 
-git 
+git push origin master
